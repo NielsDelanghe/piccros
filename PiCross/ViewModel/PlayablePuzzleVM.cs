@@ -23,6 +23,8 @@ namespace ViewModel
             this.RowConstraints = puzzle.RowConstraints.Select(constraint => new ConstraintsVM(constraint)).ToList();
             this.ColumnConstraints = puzzle.ColumnConstraints.Select(constraint => new ConstraintsVM(constraint)).ToList();
             this.Grid = puzzle.Grid.Map(square => new SquareVM(square)).Copy();
+
+
         }
 
 
