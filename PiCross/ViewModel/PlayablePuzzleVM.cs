@@ -20,18 +20,16 @@ namespace ViewModel
         {
             this.puzzle = puzzle;
 
-            this.RowConstraints = puzzle.RowConstraints.Select(constraint => new ConstraintsVM(constraint)).ToList();
-            this.ColumnConstraints = puzzle.ColumnConstraints.Select(constraint => new ConstraintsVM(constraint)).ToList();
+            this.RowConstraints = Sequence.FromEnumerable( puzzle.RowConstraints.Select( constraint => new ConstraintsVM( constraint ) ) );
+            this.ColumnConstraints = Sequence.FromEnumerable( puzzle.ColumnConstraints.Select( constraint => new ConstraintsVM( constraint ) ) );
             this.Grid = puzzle.Grid.Map(square => new SquareVM(square)).Copy();
-
-
         }
 
 
 
         public IGrid<SquareVM> Grid { get; }
-        public IList<ConstraintsVM> RowConstraints { get; }
-        public IList<ConstraintsVM> ColumnConstraints { get; }
+        public ISequence<ConstraintsVM> RowConstraints { get; }
+        public ISequence<ConstraintsVM> ColumnConstraints { get; }
 
 
 

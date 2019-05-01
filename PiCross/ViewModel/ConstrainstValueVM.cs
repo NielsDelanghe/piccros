@@ -15,5 +15,7 @@ namespace ViewModel
         {
             this.value = value;
         }
+
+        public int Value => value.Value;
     }
 }

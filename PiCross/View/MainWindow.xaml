@@ -37,8 +37,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <!--<TextBlock Width="32" Height="32" Text="{Binding Value}"/>-->
-                                <TextBlock Width="32" Height="32" Text="10"/>
+                                <TextBlock Width="32" Height="32" Text="{Binding Value}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
