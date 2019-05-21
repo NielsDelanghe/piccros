@@ -17,6 +17,10 @@ using System.Windows.Shapes;
 using Grid = DataStructures.Grid;
 using Size = DataStructures.Size;
 using ViewModel;
+using System.Globalization;
+using Cells;
+using System.ComponentModel;
+using System.Windows.Threading;
 
 namespace View
 {
@@ -25,48 +29,47 @@ namespace View
     /// </summary>
     public partial class MainWindow : Window
     {
-       
+        private MediaPlayer player;
+        private List<string> songs;
+        private static Random rng = new Random();
+
+
         public MainWindow()
         {
+            songs = new List<string>();
+            songs.Add("../AvengersEndgame.mp3");
+            
+            
+
             InitializeComponent();
 
-            var puzzle = Puzzle.FromRowStrings(
-                "xxxxx",
-                "x...x",
-                "x...x",
-                "x...x",
-                "xxxxx"
-             );
+            var navigatorVM = new Navigator();
+            this.DataContext = navigatorVM;
 
-            var facade = new PiCrossFacade();
-            var playablePuzzle = facade.CreatePlayablePuzzle(puzzle);
-          
-            var playablePuzzleVM = new PlayablePuzzleVM(playablePuzzle);
 
-            //playablePuzzle.Grid[new DataStructures.Vector2D(0, 0)].Contents.Value = Square.FILLED;
-            //playablePuzzle.Grid[new DataStructures.Vector2D(1, 0)].Contents.Value = Square.EMPTY;
-
-            this.DataContext = playablePuzzleVM;
-            
-            //picrossController.Grid = playablePuzzle.Grid;
-            //picrossController.RowConstraints = playablePuzzle.RowConstraints; //cijfers rijen
-            //picrossController.ColumnConstraints = playablePuzzle.ColumnConstraints; //cijfers kolomen
+            player = new MediaPlayer();
+            player.MediaEnded += OnMediaEnded;
+            var randomSongs = songs.OrderBy(a => rng.Next());
+            player.Open(new Uri((randomSongs.ElementAt(0)).ToString(), UriKind.Relative));
+            player.Play();
 
         }
 
-        //private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    var rect = (Rectangle)sender;
-        //    var tag = rect.Tag;
-        //    var square = (IPlayablePuzzleSquare)tag;
+        private void OnMediaEnded(object sender, EventArgs e)
+        {
+            var randomSongs = songs.OrderBy(a => rng.Next());
+            player.Open(new Uri((randomSongs.ElementAt(0)).ToString(), UriKind.Relative));
+            player.Play();
+        }
 
-        //    square.Contents.Value = Square.FILLED;
-
-
-
-        //}
-
-
+        
     }
 
 }
+
+    
+
+
+
+    
+

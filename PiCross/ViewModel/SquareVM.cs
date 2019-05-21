@@ -17,21 +17,24 @@ namespace ViewModel
         public SquareVM(IPlayablePuzzleSquare square)
         {
             this.square = square;
-            this.clickRectangle = new ClickRectangleCommand(this.square);
+            this.fillRectangle = new FillRectangleCommand(this.square);
+            this.emptyRectangle = new EmptyRectangleCommand(this.square);
+            
             
         }
 
         public Cell<Square> Contents => square.Contents;
 
-        public ICommand clickRectangle { get; }
+        public ICommand fillRectangle { get; }
+        public ICommand emptyRectangle { get; }
 
-        private class ClickRectangleCommand : ICommand
+        private class FillRectangleCommand : ICommand
         {
             public event EventHandler CanExecuteChanged;
 
             private readonly IPlayablePuzzleSquare square;
 
-            public ClickRectangleCommand(IPlayablePuzzleSquare square)
+            public FillRectangleCommand(IPlayablePuzzleSquare square)
             {
                 this.square = square;
             }
@@ -43,8 +46,43 @@ namespace ViewModel
 
             public void Execute(object parameter)
             {
-                square.Contents.Value = Square.FILLED;
+                if(square.Contents.Value == Square.UNKNOWN || square.Contents.Value== Square.EMPTY)
+                {
+                    square.Contents.Value = Square.FILLED;
+                }
+
+                else
+                {
+                    square.Contents.Value = Square.UNKNOWN;
+                }
+                
             }
         }
+
+        private class EmptyRectangleCommand : ICommand
+        {
+            public event EventHandler CanExecuteChanged;
+
+            private readonly IPlayablePuzzleSquare square;
+
+            public EmptyRectangleCommand(IPlayablePuzzleSquare s)
+            {
+                this.square = s;
+            }
+
+            public bool CanExecute(object parameter)
+            {
+                return true;
+            }
+
+            public void Execute(object parameter)
+            {
+                square.Contents.Value = Square.EMPTY;
+            }
+        }
+
+
+
+       
     }
 }

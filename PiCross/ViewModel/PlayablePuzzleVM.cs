@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Shapes;
 using System.Windows.Input;
 using DataStructures;
+using Cells;
 
 namespace ViewModel
 {
@@ -16,6 +17,7 @@ namespace ViewModel
     {
         private readonly IPlayablePuzzle puzzle;
 
+
         public PlayablePuzzleVM(IPlayablePuzzle puzzle)
         {
             this.puzzle = puzzle;
@@ -23,13 +25,21 @@ namespace ViewModel
             this.RowConstraints = Sequence.FromEnumerable( puzzle.RowConstraints.Select( constraint => new ConstraintsVM( constraint ) ) );
             this.ColumnConstraints = Sequence.FromEnumerable( puzzle.ColumnConstraints.Select( constraint => new ConstraintsVM( constraint ) ) );
             this.Grid = puzzle.Grid.Map(square => new SquareVM(square)).Copy();
+            this.IsSolved = puzzle.IsSolved;
+
+
+
         }
+
+        
 
 
 
         public IGrid<SquareVM> Grid { get; }
         public ISequence<ConstraintsVM> RowConstraints { get; }
         public ISequence<ConstraintsVM> ColumnConstraints { get; }
+        public Cell<bool> IsSolved { get; }
+        
 
 
 

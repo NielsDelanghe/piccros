@@ -4,62 +4,305 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:View"
+        xmlns:vm="clr-namespace:ViewModel;assembly=ViewModel"
         xmlns:controls="clr-namespace:View.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <controls:PiCrossControl x:Name="picrossController" Grid="{Binding Grid}" RowConstraints="{Binding RowConstraints}" ColumnConstraints="{Binding ColumnConstraints}">
-            <controls:PiCrossControl.SquareTemplate>
-                <DataTemplate>
-                    <Rectangle Width="32" Height="32" Stroke="Black"><!--MouseDown="Rectangle_MouseDown" Tag="{Binding .}"-->
-                        <Rectangle.Fill>
-                            <Binding Path="Contents.Value">
-                                <Binding.Converter>
-                                    <local:SquareConverter Empty="White" Filled="Black" Unknown="Gray"/>
-                                </Binding.Converter>
-                            </Binding>
-                        </Rectangle.Fill>
-                        <Rectangle.InputBindings>
-                            <MouseBinding Gesture="LeftClick" Command="{Binding clickRectangle}"/>
-                        </Rectangle.InputBindings>
-                    </Rectangle>
-                               
-                </DataTemplate>
-            </controls:PiCrossControl.SquareTemplate>
+        Title="MainWindow" Height="600" Width="850">
+    <Window.Resources>
+        <vm:ConstraintsToSatisfiedConverter x:Key="constraintconverter"/>
+        <vm:PuzzleCompletedTextConverter x:Key="puzzleText"/>
+        <vm:PuzzleNameTextConverter x:Key="puzzleNameConverter"/>
+        <vm:PuzzleCompletedBackgroundConverter x:Key="backgroundConverter"/>
+    </Window.Resources>
+
+    <ContentPresenter Content="{Binding CurrentScreen}">
+        <ContentPresenter.Resources>
+            <DataTemplate DataType="{x:Type vm:IntroductionPlayScreenVM}">
+                <DockPanel>
+                    <Grid>
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="Black" Offset="0"/>
+                                <GradientStop Color="Gray" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+
+                        <TextBlock Text="PiCross" FontSize="50" TextAlignment="Center" VerticalAlignment="Top" Padding="100">
+                            <TextBlock.Foreground>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="White" Offset="0"/>
+                                </LinearGradientBrush>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+
+
+
+                        <TextBlock Text="Add a user or login to play the game" FontSize="25" TextAlignment="Center" Margin="0,180,0,-180" >
+                            <TextBlock.Foreground>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="White" Offset="0"/>
+                                </LinearGradientBrush>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+
+                        <Button  Width="125.5" Height="70" Content="Play" FontSize="30"  Command="{Binding GoToLoginScreen}">
+
+                            <Button.Foreground>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="White" Offset="0"/>
+                                </LinearGradientBrush>
+                            </Button.Foreground>
+
+                            <Button.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="Black" Offset="0"/>
+                                    <GradientStop Color="Gray" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+
+                        <Button Width="125.5" Height="70" Content="Add user" FontSize="30" Margin="0,300,0,0" Command="{Binding GoToAddUserScreen}">
+                            <Button.Foreground>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="White" Offset="0"/>
+                                </LinearGradientBrush>
+                            </Button.Foreground>
+
+                            <Button.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="Black" Offset="0"/>
+                                    <GradientStop Color="Gray" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+
+                    </Grid>
+                </DockPanel>
+            </DataTemplate>
             
-            <controls:PiCrossControl.RowConstraintsTemplate>
-                <DataTemplate>
-                    <ItemsControl ItemsSource="{Binding Values}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Width="32" Height="32" Text="{Binding Value}"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </DataTemplate>
-            </controls:PiCrossControl.RowConstraintsTemplate>
-            
-            <controls:PiCrossControl.ColumnConstraintsTemplate>
-                <DataTemplate>
-                    <ItemsControl ItemsSource="{Binding Values}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Vertical"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Width="32" Height="32" Text="{Binding Value}"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </DataTemplate>
-            </controls:PiCrossControl.ColumnConstraintsTemplate>
-        </controls:PiCrossControl>
-    </Grid>
+           
+            <DataTemplate DataType="{x:Type vm:AddPlayerScreenVM}">
+                <DockPanel>
+                    <Grid>
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="Black" Offset="0"/>
+                                <GradientStop Color="Gray" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+
+                        <TextBlock Text="Picross add new player" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,80,0,0" FontSize="40">
+                            <TextBlock.Foreground>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="White" Offset="0"/>
+                                </LinearGradientBrush>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+
+                        <TextBlock Text="Enter new user name" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,240,0,0" FontSize="30">
+                            <TextBlock.Foreground>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="White" Offset="0"/>
+                                </LinearGradientBrush>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                        <TextBox Text="{Binding Path=AddPlayer.Playername ,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="300" Height="30" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,300,0,80" TextAlignment="Center" FontSize="20"></TextBox>
+                        
+                        <Button Command="{Binding AddPlayer}" Width="200" Height="70" Content="Add user" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="30" Margin="0,0,0,120">
+                            <Button.Foreground>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="White" Offset="0"/>
+                                </LinearGradientBrush>
+                            </Button.Foreground>
+
+                            <Button.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="Black" Offset="0"/>
+                                    <GradientStop Color="Gray" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+
+                        <Button Command="{Binding GotToIntroductionScreen}" Width="200" Height="70" Content="Back" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="30" Margin="0,0,0,60">
+                            <Button.Foreground>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="White" Offset="0"/>
+                                </LinearGradientBrush>
+                            </Button.Foreground>
+
+                            <Button.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="Black" Offset="0"/>
+                                    <GradientStop Color="Gray" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+
+                    </Grid>
+                </DockPanel>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:LoginScreenVM}">
+                <DockPanel>
+                    <Grid>
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="Black" Offset="0"/>
+                                <GradientStop Color="Gray" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+
+                        <TextBlock Text="Select a user to login and play" FontSize="30" TextAlignment="Center" Margin="-10,49,10,-49" >
+                            <TextBlock.Foreground>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="White" Offset="0"/>
+                                </LinearGradientBrush>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+
+                        <ListBox ItemsSource="{Binding players}" SelectedItem="{Binding SelectedUser}" Width="200" Height="200">
+                        </ListBox>
+
+                        <Button Content="Select a user to login and play the game" HorizontalAlignment="Center" Margin="0,400,0,0" VerticalAlignment="Top" Width="230" Height="43" Command="{Binding GoToSelectionScreen}"/>
+
+                        <Button Content="Back" HorizontalAlignment="Center" Margin="0,500,0,0" VerticalAlignment="Top" Width="230" Height="43" Command="{Binding GotToIntroductionScreen}"/>
+
+                    </Grid>
+                </DockPanel>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:SelectionScreenVM}">
+                <DockPanel>
+                    <Grid>
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="Black" Offset="0"/>
+                                <GradientStop Color="Gray" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+
+                        <TextBlock Text="Select the puzzle you want to play" FontSize="30" TextAlignment="Center" Margin="-10,49,10,-49" >
+                            <TextBlock.Foreground>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="White" Offset="0"/>
+                                </LinearGradientBrush>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+
+                        <ListBox ItemsSource="{Binding Puzzles}" SelectedItem="{Binding SelectedPuzzle}" Width="200" Height="200">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Grid.Size, Converter={StaticResource puzzleNameConverter}}" FontSize="18" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                        <Image HorizontalAlignment="Left" Height="167" Margin="47,137,0,0" VerticalAlignment="Top" Width="189" Source="Images/Picross5X5.PNG"/>
+                        <Image HorizontalAlignment="Right" Height="167" Margin="0,137,49,0" VerticalAlignment="Top" Width="189" Source="Images/Picross6X6.PNG"/>
+
+                        <Button Content="Play the selected puzzle" HorizontalAlignment="Center" Margin="0,400,0,0" VerticalAlignment="Top" Width="189" Height="43" Command="{Binding GoToPlayScreen}"/>
+
+                    </Grid>
+                </DockPanel>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:PlayScreenVM}">
+                <Grid Background="{Binding IsSolved.Value, Converter={StaticResource backgroundConverter}}">
+                    
+                    <TextBlock Text="{Binding Time}"  HorizontalAlignment="Right" Margin="0,100,250,200" FontSize="20"/>
+                    
+                    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <controls:PiCrossControl x:Name="picrossController" Grid="{Binding Grid}" RowConstraints="{Binding RowConstraints}" ColumnConstraints="{Binding ColumnConstraints}">
+                            <controls:PiCrossControl.SquareTemplate>
+                                <DataTemplate>
+                                    <Rectangle Width="32" Height="32" Stroke="Black">
+                                        <Rectangle.Fill>
+                                            <Binding Path="Contents.Value">
+                                                <Binding.Converter>
+                                                    <local:SquareConverter Empty="White" Filled="Black" Unknown="Gray"/>
+                                                </Binding.Converter>
+                                            </Binding>
+                                        </Rectangle.Fill>
+                                        <Rectangle.InputBindings>
+                                            <MouseBinding Gesture="LeftClick" Command="{Binding fillRectangle}"/>
+                                            <MouseBinding Gesture="RightClick" Command="{Binding emptyRectangle}"/>
+                                        </Rectangle.InputBindings>
+                                    </Rectangle>
+
+                                </DataTemplate>
+                            </controls:PiCrossControl.SquareTemplate>
+
+                            <controls:PiCrossControl.RowConstraintsTemplate>
+                                <DataTemplate>
+                                    <ItemsControl ItemsSource="{Binding Values}" Background="{Binding IsSatisfied.Value, Converter={StaticResource constraintconverter}}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Width="32" Height="32" Text="{Binding Value}"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </DataTemplate>
+                            </controls:PiCrossControl.RowConstraintsTemplate>
+
+                            <controls:PiCrossControl.ColumnConstraintsTemplate>
+                                <DataTemplate>
+                                    <ItemsControl ItemsSource="{Binding Values}" Background="{Binding IsSatisfied.Value, Converter={StaticResource constraintconverter}}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Vertical"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Width="32" Height="32" Text="{Binding Value}"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </DataTemplate>
+                            </controls:PiCrossControl.ColumnConstraintsTemplate>
+                        </controls:PiCrossControl>
+                       
+                        <TextBlock Text="{Binding IsSolved.Value, Converter={StaticResource puzzleText}}" HorizontalAlignment="Right" Margin="30,100,0,0" FontSize="20">
+                        </TextBlock>
+
+                    </DockPanel>
+
+                    <Button Width="400" Content="Back To Selection Screen" FontSize="30"  Command="{Binding GoToSelectionScreen}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,50">
+                        <Button.Foreground>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="White" Offset="0"/>
+                            </LinearGradientBrush>
+                        </Button.Foreground>
+
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="Black" Offset="0"/>
+                                <GradientStop Color="Gray" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <Button Width="400" Content="Reset Puzzle" FontSize="30"  Command="{Binding ResetPuzzle}" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                        <Button.Foreground>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="White" Offset="0"/>
+                            </LinearGradientBrush>
+                        </Button.Foreground>
+
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="Black" Offset="0"/>
+                                <GradientStop Color="Gray" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                </Grid>
+            </DataTemplate>
+        </ContentPresenter.Resources>
+    </ContentPresenter>
+
+
 </Window>

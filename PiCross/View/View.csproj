@@ -120,5 +120,11 @@
       <Name>ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Picross6X6.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Picross5X5.PNG" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

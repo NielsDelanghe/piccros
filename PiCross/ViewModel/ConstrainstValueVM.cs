@@ -17,5 +17,6 @@ namespace ViewModel
         }
 
         public int Value => value.Value;
+        
     }
 }
