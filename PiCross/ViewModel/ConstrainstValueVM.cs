@@ -1,4 +1,5 @@
-﻿using PiCross;
+﻿using Cells;
+using PiCross;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,6 @@ namespace ViewModel
 
         public int Value => value.Value;
         
+
     }
 }

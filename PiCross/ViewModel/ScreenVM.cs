@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PiCross;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public List<string> players = new List<string>();
+        
 
         private ScreenVM currentScreen;
 

@@ -3,9 +3,11 @@ using PiCross;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace ViewModel
@@ -14,31 +16,32 @@ namespace ViewModel
     {
         public string name;
         public List<String> players;
-        
+        public bool added;
 
         public AddPlayerScreenVM(Navigator navigator) : base(navigator)
         {
             this.players = new List<string>();
+            
             GotToIntroductionScreen = new SwitchScreenCommand(() => SwitchTo(new IntroductionPlayScreenVM(navigator, players)));
             name = "Name";
-            
-            AddPlayer = new AddPlayerCommand(name, playerLibrary,players);
-           
-            
-            
+            added = false;
+            AddPlayer = new AddPlayerCommand(name, playerLibrary,players, added);
         }
+
 
         public ICommand GotToIntroductionScreen { get; }
         public IPlayerLibrary playerLibrary { get; }
         
         public ICommand AddPlayer { get; set; }
+       
+
         
-        
+
 
         public class AddPlayerCommand : ICommand, INotifyPropertyChanged
         {
             public event PropertyChangedEventHandler PropertyChanged;
-
+           
             public string Playername
             {
                 get
@@ -53,11 +56,27 @@ namespace ViewModel
                 }
             }
 
+            public bool Added
+            {
+                get
+                {
+                    return add;
+                }
+
+                set
+                {
+                    add = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Added)));
+                }
+            }
+
             private void OnNameChanged(object sender, EventArgs args)
             {
                 name = Playername;
 
             }
+
+            
 
             public event EventHandler CanExecuteChanged;
 
@@ -65,15 +84,16 @@ namespace ViewModel
             IPlayerLibrary playerLibrary;
             private List<string> players;
 
+            private bool add;
 
-
-            public AddPlayerCommand(string name, IPlayerLibrary playerLibrary, List<String> players)
+            public AddPlayerCommand(string name, IPlayerLibrary playerLibrary, List<string> players, bool added)
             {
                 
                 this.name = name;
                 this.playerLibrary = playerLibrary;
                 this.players = players;
-
+                this.add = added;
+                
             }
 
             public bool CanExecute(object parameter)
@@ -85,17 +105,39 @@ namespace ViewModel
             {
                 name = Playername;
                 players.Add(name);
-                
-                //IPlayerDatabase playerDatabase;
-                Console.WriteLine(name);
-                
-                //playerLibrary.CreateNewProfile(name);
+                this.Added = true;
+              
+                //Console.WriteLine(name);
 
+               
             }
-        }
 
+        }
 
     }
 
-   
+    public class AddedTextConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (!(bool)value)
+            {
+                return "No player added yet";
+            }
+
+
+
+            else
+            {
+                return "Player added";
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
 }

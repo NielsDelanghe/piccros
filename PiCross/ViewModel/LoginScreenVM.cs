@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PiCross;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,11 +10,12 @@ namespace ViewModel
 {
     public class LoginScreenVM : ScreenVM
     {
-        public List<String> players { get; }
-
+        public IList<String> players { get; set; }
+        
         public LoginScreenVM(Navigator navigator, List<String> players) : base(navigator)
         {
             this.players = players;
+            
             GoToSelectionScreen = new SwitchScreenCommand(() => SwitchTo(new SelectionScreenVM(navigator)));
             GotToIntroductionScreen = new SwitchScreenCommand(() => SwitchTo(new IntroductionPlayScreenVM(navigator, players)));
         }

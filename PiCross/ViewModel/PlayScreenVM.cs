@@ -70,9 +70,16 @@ namespace ViewModel
                 this.timer.IsEnabled = false;
             }
 
-            var now = DateTime.Now;
-            Time += now - lastTick;
-            lastTick = now;
+            else
+            {
+                var now = DateTime.Now;
+                Time += now - lastTick;
+                lastTick = now;
+            }
+
+            
+
+           
         }
 
 
@@ -120,6 +127,8 @@ namespace ViewModel
             throw new NotImplementedException();
         }
     }
+
+    
 
     public class PuzzleCompletedTextConverter : IValueConverter
     {
