@@ -9,11 +9,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="850">
     <Window.Resources>
-        <vm:ConstraintsToSatisfiedConverter x:Key="constraintconverter"/>
-        <vm:PuzzleCompletedTextConverter x:Key="puzzleText"/>
-        <vm:PuzzleNameTextConverter x:Key="puzzleNameConverter"/>
-        <vm:PuzzleCompletedBackgroundConverter x:Key="backgroundConverter"/>
-        <vm:AddedTextConverter x:Key="addTextConverter"/>
+        <local:PuzzleCompletedBackgroundConverter x:Key="background"/>
+        <local:PuzzleCompletedTextConverter x:Key="text"/>
+        <local:ConstraintsToSatisfiedConverter x:Key="fullconstraintconverter"/>
+        <local:AddedTextConverter x:Key="addTextConverter"/>
+        <local:PuzzleNameTextConverter x:Key="puzzleNameConverter"/>
+        <local:ConstraintsToSatisfiedConverterX x:Key="oneconstraintconverter"/>
     </Window.Resources>
 
     <ContentPresenter Content="{Binding CurrentScreen}">
@@ -254,7 +255,7 @@
                 </DockPanel>
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:PlayScreenVM}">
-                <Grid Background="{Binding IsSolved.Value, Converter={StaticResource backgroundConverter}}">
+                <Grid Background="{Binding IsSolved.Value, Converter={StaticResource background}}">
                     
                     <TextBlock Text="{Binding Time}"  HorizontalAlignment="Right" Margin="0,100,250,200" FontSize="20"/>
                     
@@ -281,7 +282,7 @@
 
                             <controls:PiCrossControl.RowConstraintsTemplate>
                                 <DataTemplate>
-                                    <ItemsControl ItemsSource="{Binding Values}" Background="{Binding IsSatisfied.Value, Converter={StaticResource constraintconverter}}">
+                                    <ItemsControl ItemsSource="{Binding Values}" Background="{Binding IsSatisfied.Value, Converter={StaticResource fullconstraintconverter}}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <StackPanel Orientation="Horizontal"/>
@@ -289,7 +290,7 @@
                                         </ItemsControl.ItemsPanel>
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Width="32" Height="32" Text="{Binding Value}">
+                                                <TextBlock Width="32" Height="32" Text="{Binding Value}" Foreground="{Binding IsSatisfiedx.Value, Converter={StaticResource oneconstraintconverter}}">
                                                     
                                                 </TextBlock>
                                             </DataTemplate>
@@ -300,7 +301,7 @@
 
                             <controls:PiCrossControl.ColumnConstraintsTemplate>
                                 <DataTemplate>
-                                    <ItemsControl ItemsSource="{Binding Values}" Background="{Binding IsSatisfied.Value, Converter={StaticResource constraintconverter}}">
+                                    <ItemsControl ItemsSource="{Binding Values}" Background="{Binding IsSatisfied.Value, Converter={StaticResource fullconstraintconverter}}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <StackPanel Orientation="Vertical"/>
@@ -308,15 +309,15 @@
                                         </ItemsControl.ItemsPanel>
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Width="32" Height="32" Text="{Binding Value}"/>
+                                                <TextBlock Width="32" Height="32" Text="{Binding Value}" Foreground="{Binding IsSatisfiedx.Value, Converter={StaticResource oneconstraintconverter}}"/>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
                                 </DataTemplate>
                             </controls:PiCrossControl.ColumnConstraintsTemplate>
                         </controls:PiCrossControl>
-                       
-                        <TextBlock Text="{Binding IsSolved.Value, Converter={StaticResource puzzleText}}" HorizontalAlignment="Right" Margin="30,100,0,0" FontSize="20">
+
+                        <TextBlock Text="{Binding IsSolved.Value, Converter={StaticResource text}}" HorizontalAlignment="Right" Margin="30,100,0,0" FontSize="20">
                         </TextBlock>
 
                     </DockPanel>

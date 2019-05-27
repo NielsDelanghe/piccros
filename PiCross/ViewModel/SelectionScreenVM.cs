@@ -66,21 +66,5 @@ namespace ViewModel
             "x.x");
     }
 
-    public class PuzzleNameTextConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            String g1 = value.ToString().Substring(11);
-            String g2 = value.ToString().Substring(14);
-           
-            char[] textChar = value.ToString().ToCharArray();
-            String text ="Puzzle "+  textChar[11].ToString() + " X "+ textChar[14].ToString();
-            return text;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
+    
 }

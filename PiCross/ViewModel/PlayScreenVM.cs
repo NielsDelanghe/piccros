@@ -104,78 +104,78 @@ namespace ViewModel
 
     
 
-    public class ConstraintsToSatisfiedConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            //var constraint = (ConstraintsVM)value;
+    //public class ConstraintsToSatisfiedConverter : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        //var constraint = (ConstraintsVM)value;
 
-            if ((bool)value)
-            {
-                return new SolidColorBrush(Colors.Green);
+    //        if ((bool)value)
+    //        {
+    //            return new SolidColorBrush(Colors.Green);
                 
-            }
+    //        }
 
-            else
-            {
-                return new SolidColorBrush(Colors.Red);
-            }
-        }
+    //        else
+    //        {
+    //            return new SolidColorBrush(Colors.Red);
+    //        }
+    //    }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 
     
 
-    public class PuzzleCompletedTextConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if ((bool)value)
-            {
-                return "Proficiat u heeft de puzzel opgelost";
+    //public class PuzzleCompletedTextConverter : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        if ((bool)value)
+    //        {
+    //            return "Proficiat u heeft de puzzel opgelost";
                
                 
-            }
+    //        }
 
-            else
-            {
-                return "Deze puzzel is nog niet opgelost";
-            }
-        }
+    //        else
+    //        {
+    //            return "Deze puzzel is nog niet opgelost";
+    //        }
+    //    }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 
 
-    public class PuzzleCompletedBackgroundConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if ((bool)value)
-            {
-                return new SolidColorBrush(Colors.LightGreen);
-            }
+    //public class PuzzleCompletedBackgroundConverter : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        if ((bool)value)
+    //        {
+    //            return new SolidColorBrush(Colors.LightGreen);
+    //        }
 
             
 
-            else
-            {
-                return new SolidColorBrush(Colors.WhiteSmoke);
-            }
-        }
+    //        else
+    //        {
+    //            return new SolidColorBrush(Colors.WhiteSmoke);
+    //        }
+    //    }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 
 
 

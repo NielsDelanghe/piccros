@@ -63,6 +63,143 @@ namespace View
         }
 
         
+
+
+    }
+
+    public class PuzzleCompletedBackgroundConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if ((bool)value)
+            {
+                return new SolidColorBrush(Colors.LightGreen);
+            }
+
+
+
+            else
+            {
+                return new SolidColorBrush(Colors.WhiteSmoke);
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class PuzzleCompletedTextConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if ((bool)value)
+            {
+                return "Proficiat u heeft de puzzel opgelost";
+
+
+            }
+
+            else
+            {
+                return "Deze puzzel is nog niet opgelost";
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ConstraintsToSatisfiedConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            //var constraint = (ConstraintsVM)value;
+
+            if ((bool)value)
+            {
+                return new SolidColorBrush(Colors.Green);
+
+            }
+
+            else
+            {
+                return new SolidColorBrush(Colors.Red);
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ConstraintsToSatisfiedConverterX : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            //var constraint = (ConstraintsVM)value;
+
+            if ((bool)value)
+            {
+                return new SolidColorBrush(Colors.White);
+
+            }
+
+            else
+            {
+                return new SolidColorBrush(Colors.Orange);
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class AddedTextConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (!(bool)value)
+            {
+                return "No player added yet";
+            }
+
+
+
+            else
+            {
+                return "Player added";
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class PuzzleNameTextConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            String g1 = value.ToString().Substring(11);
+            String g2 = value.ToString().Substring(14);
+
+            char[] textChar = value.ToString().ToCharArray();
+            String text = "Puzzle " + textChar[11].ToString() + " X " + textChar[14].ToString();
+            return text;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }

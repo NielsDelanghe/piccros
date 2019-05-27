@@ -18,7 +18,8 @@ namespace ViewModel
         }
 
         public int Value => value.Value;
-        
+        public Cell<bool> IsSatisfiedx => value.IsSatisfied;
+
 
     }
 }
