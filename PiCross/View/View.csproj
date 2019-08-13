@@ -126,5 +126,9 @@
   <ItemGroup>
     <Resource Include="Images\Picross5X5.PNG" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Music\AvengersEndgame.mp3" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

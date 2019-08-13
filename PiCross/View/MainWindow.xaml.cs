@@ -37,7 +37,8 @@ namespace View
         public MainWindow()
         {
             songs = new List<string>();
-            songs.Add("../AvengersEndgame.mp3");
+            //songs.Add("Music/AvengersEndgame.mp3");
+            songs.Add("D:/UCLL2018-2019/Semester2/Programmeren van visuele gebruikersomgeving/Opdracht/picross-1819-NielsDelanghe/PiCross/View/Music/AvengersEndgame.mp3");
             
             
 
